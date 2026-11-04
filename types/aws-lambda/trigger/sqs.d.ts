@@ -1,6 +1,6 @@
-import { Handler } from '../handler';
+import { Handler } from "../handler";
 
-// tslint:disable-next-line:void-return
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export type SQSHandler = Handler<SQSEvent, SQSBatchResponse | void>;
 
 // SQS
@@ -12,6 +12,7 @@ export interface SQSRecord {
     attributes: SQSRecordAttributes;
     messageAttributes: SQSMessageAttributes;
     md5OfBody: string;
+    md5OfMessageAttributes?: string;
     eventSource: string;
     eventSourceARN: string;
     awsRegion: string;
@@ -30,15 +31,16 @@ export interface SQSRecordAttributes {
     SequenceNumber?: string | undefined;
     MessageGroupId?: string | undefined;
     MessageDeduplicationId?: string | undefined;
+    DeadLetterQueueSourceArn?: string | undefined; // Undocumented, but used by AWS to support their re-drive functionality in the console
 }
 
-export type SQSMessageAttributeDataType = 'String' | 'Number' | 'Binary' | string;
+export type SQSMessageAttributeDataType = "String" | "Number" | "Binary" | string;
 
 export interface SQSMessageAttribute {
     stringValue?: string | undefined;
     binaryValue?: string | undefined;
-    stringListValues: never[]; // Not implemented. Reserved for future use.
-    binaryListValues: never[]; // Not implemented. Reserved for future use.
+    stringListValues?: string[] | undefined; // Not implemented. Reserved for future use.
+    binaryListValues?: string[] | undefined; // Not implemented. Reserved for future use.
     dataType: SQSMessageAttributeDataType;
 }
 

@@ -1,17 +1,23 @@
-import middy from '@middy/core';
-import { HttpGatewayEvent } from './normalizeHttpRequestMiddleware';
-import AuroraDbService from '../services/AuroraDbService';
-import AuroraDbRDSProxyService from '../services/AuroraDbRDSProxyService';
-
-export interface MiddlewareOptions {
-    headers?: Record<string, string>;
-    debugMode?: boolean;
-    zipWhenRequest?: Array<'ELB' | 'APIGATEWAY'>;
-    db?: AuroraDbService | AuroraDbRDSProxyService;
-}
+import middy from "@middy/core";
+import AuroraDbRDSProxyService from "../services/AuroraDbRDSProxyService";
+import AuroraDbService from "../services/AuroraDbService";
+import { HttpMiddlewareOptions } from "./httpMiddleware";
+import { HttpGatewayEvent } from "./normalizeHttpRequestMiddleware";
 
 export interface SuccessHttpMiddleware {
     after: middy.MiddlewareFunction<HttpGatewayEvent, any>;
 }
 
-export default function successHttpResponseMiddleware(opts?: MiddlewareOptions): SuccessHttpMiddleware;
+export interface SuccessHttpMiddlewareOptions extends HttpMiddlewareOptions {
+    zipWhenRequest?: Array<"ELB" | "APIGATEWAY">;
+}
+
+export function successHttpResponseAfterHandler(
+    handler: middy.HandlerLambda<HttpGatewayEvent>,
+    next: middy.NextFunction,
+    opts?: SuccessHttpMiddlewareOptions,
+): void;
+
+export function successHttpResponseHandler(opts?: SuccessHttpMiddlewareOptions): any;
+
+export default function successHttpResponseMiddleware(opts?: SuccessHttpMiddlewareOptions): SuccessHttpMiddleware;

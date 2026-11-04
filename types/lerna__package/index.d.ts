@@ -1,10 +1,5 @@
-// Type definitions for @lerna/package 4.0
-// Project: https://github.com/lerna/lerna/tree/main/core/package
-// Definitions by: DonMahallem <https://github.com/donmahallem>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import type { Result } from "npm-package-arg";
 
-import type { resolve } from "npm-package-arg";
-export type ResolveResult = ReturnType<typeof resolve>;
 /**
  * Partial package.json representation
  */
@@ -20,7 +15,7 @@ export type RawManifest = {
     peerDependencies?: Record<string, string>;
     publishConfig?: Record<string, string>;
     workspaces?: string[] | { packages: string[] };
-} & { [key: string]: any; };
+} & { [key: string]: any };
 /**
  * Lerna's internal representation of a local package, with
  * many values resolved directly from the original JSON.
@@ -36,10 +31,10 @@ export class Package {
     name: string;
     get location(): string;
     get private(): boolean;
-    get resolved(): ResolveResult;
+    get resolved(): Result;
     get rootPath(): string;
-    get scripts(): RawManifest['scripts'];
-    get bin(): RawManifest['scripts'];
+    get scripts(): RawManifest["scripts"];
+    get bin(): RawManifest["scripts"];
     get binLocation(): string;
     get manifestLocation(): string;
     get nodeModuleLocation(): string;
@@ -48,12 +43,12 @@ export class Package {
     set version(v: string);
     get contents(): string;
     set contents(subDirectory: string);
-    get dependencies(): RawManifest['dependencies'];
-    get devDependencies(): RawManifest['devDependencies'];
-    get optionalDependencies(): RawManifest['optionalDependencies'];
-    get peerDependencies(): RawManifest['peerDependencies'];
-    get<K extends (keyof RawManifest) | string>(key: K): RawManifest[K];
-    set<K extends (keyof RawManifest) | string>(key: K, val: RawManifest[K]): this;
+    get dependencies(): RawManifest["dependencies"];
+    get devDependencies(): RawManifest["devDependencies"];
+    get optionalDependencies(): RawManifest["optionalDependencies"];
+    get peerDependencies(): RawManifest["peerDependencies"];
+    get<K extends keyof RawManifest | string>(key: K): RawManifest[K];
+    set<K extends keyof RawManifest | string>(key: K, val: RawManifest[K]): this;
     /**
      * Provide shallow copy for munging elsewhere
      */
@@ -70,5 +65,5 @@ export class Package {
     /**
      * Mutate local dependency spec according to type
      */
-    updateLocalDependency(resolved: ResolveResult, depVersion: string, savePrefix: string): void;
+    updateLocalDependency(resolved: Result, depVersion: string, savePrefix: string): void;
 }

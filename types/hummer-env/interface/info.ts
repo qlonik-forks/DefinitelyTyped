@@ -1,4 +1,4 @@
-export type fingerEvent = 'touch' | 'tab' | 'longPress' | 'pan' | 'swiper' | 'pinch' | 'input' | 'scroll' | 'switch';
+export type fingerEvent = "touch" | "tab" | "longPress" | "pan" | "swiper" | "pinch" | "input" | "scroll" | "switch";
 
 export interface viewRect {
     /**
@@ -178,24 +178,24 @@ export interface RequestResponse {
 }
 
 export type animationType =
-    | 'position'
-    | 'scale'
-    | 'scaleX'
-    | 'scaleY'
-    | 'rotationX'
-    | 'rotationY'
-    | 'rotationZ'
-    | 'opacity'
-    | 'backgroundColor'
-    | 'width'
-    | 'height';
+    | "position"
+    | "scale"
+    | "scaleX"
+    | "scaleY"
+    | "rotationX"
+    | "rotationY"
+    | "rotationZ"
+    | "opacity"
+    | "backgroundColor"
+    | "width"
+    | "height";
 
-export type animationEasing = 'linear' | 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out';
+export type animationEasing = "linear" | "ease" | "ease-in" | "ease-out" | "ease-in-out";
 
 export interface animationTypeMap {
     position: {
-        x: number;
-        y: number;
+        x: number | string;
+        y: number | string;
     };
     scale: number;
     scaleX: number;
